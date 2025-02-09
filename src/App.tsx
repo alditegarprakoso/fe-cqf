@@ -20,7 +20,6 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NavigationBar from './layout/Navbar';
-import ContainerHome from './layout/ContainerHome';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,9 +42,7 @@ function App() {
         element={
           <>
             <NavigationBar />
-            <ContainerHome>
-              <Home />
-            </ContainerHome>
+            <Home />
           </>
         }
       />

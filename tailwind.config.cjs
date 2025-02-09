@@ -25,6 +25,12 @@ module.exports = {
           ...colors.black,
           DEFAULT: '#1C2434',
           2: '#010101',
+          cqf: '#28292B',
+        },
+        blue: {
+          ...colors.blue,
+          DEFAULT: '#3C50E0',
+          cqf: '#389ED9',
         },
         red: {
           ...colors.red,
@@ -42,6 +48,7 @@ module.exports = {
           DEFAULT: '#EFF4FB',
           2: '#F7F9FC',
           3: '#FAFAFA',
+          cqf: '#636363',
         },
         graydark: '#333A48',
         whiten: '#F1F5F9',

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-satoshi font-normal text-base text-body bg-whiten relative z-1;
+    @apply font-satoshi font-normal text-base text-body bg-white relative z-1;
   }
 }
 
@@ -117,7 +117,9 @@ span.flatpickr-weekday,
 }
 .flatpickr-day.inRange {
   @apply dark:!shadow-7;
-  box-shadow: -5px 0 0 #EFF4FB, 5px 0 0 #EFF4FB;
+  box-shadow:
+    -5px 0 0 #eff4fb,
+    5px 0 0 #eff4fb;
 }
 .flatpickr-day.inRange,
 .flatpickr-day.prevMonthDay.inRange,
@@ -212,4 +214,33 @@ span.flatpickr-weekday,
 
 [x-cloak] {
   display: none !important;
+}
+
+.swiper-pagination-bullet.custom-bullet-hero-desktop {
+  display: block;
+  width: 6px;
+  height: 18px; /* Panjang indikator */
+  background: black;
+  transition: 0.3s ease-in-out;
+  border-radius: 100px !important;
+}
+
+.swiper-pagination-bullet-active.custom-bullet-hero-desktop {
+  height: 34px; /* Panjang indikator */
+  background: #389ED9;
+}
+
+
+.swiper-pagination-bullet.custom-bullet-hero-mobile {
+  display: block;
+  width: 16px;
+  height: 6px; /* Panjang indikator */
+  background: black;
+  transition: 0.3s ease-in-out;
+  border-radius: 100px !important;
+}
+
+.swiper-pagination-bullet-active.custom-bullet-hero-mobile {
+  width: 32px;
+  background: #389ED9;
 }
