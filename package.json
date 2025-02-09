@@ -16,8 +16,10 @@
   "dependencies": {
     "apexcharts": "^3.41.0",
     "flatpickr": "^4.6.13",
+    "flowbite-react": "^0.10.2",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
+    "lucide-react": "^0.475.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
