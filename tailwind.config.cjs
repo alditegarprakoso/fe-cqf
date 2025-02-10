@@ -13,6 +13,7 @@ module.exports = {
     screens: {
       '2xsm': '375px',
       xsm: '425px',
+      '2.5xl': '1700px',
       '3xl': '2000px',
       ...defaultTheme.screens,
     },
@@ -51,6 +52,10 @@ module.exports = {
           cqf: '#636363',
         },
         graydark: '#333A48',
+        green: {
+          ...colors.green,
+          cqf: '#AFCD21',
+        },
         whiten: '#F1F5F9',
         whiter: '#F5F7FD',
         boxdark: '#24303F',
