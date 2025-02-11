@@ -1,4 +1,5 @@
 // React, Flowbite
+import { useRef } from 'react';
 import { Button, Flowbite } from 'flowbite-react';
 import { customTheme } from '../utils/FlowbiteThemesCustom';
 
@@ -13,6 +14,7 @@ import {
   OthersCategoryIcon,
   WakafIcon,
 } from '../components/Icon';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Image
 import HeroImageOne from '../images/homepage/hero-image/hero-image-1.png';
@@ -23,16 +25,69 @@ import BackgroundHero from '../images/background/background-hero.png';
 import DonationBeras from '../images/homepage/donation/donation-beras.png';
 import DonationGempa from '../images/homepage/donation/donation-gempa.png';
 import DonationYatim from '../images/homepage/donation/donation-yatim.png';
+import ZakatInformation from '../images/homepage/donation/zakat-image.svg';
+import BarangBerkah from '../images/homepage/donation/barang-berkah.svg';
+import AmazingBox from '../images/homepage/donation/amazing-box.svg';
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+
+// Component
 import ContainerHome from '../layout/ContainerHome';
 import DonationCard from '../components/Card/DonationCard';
 
 function Home() {
+  const swiperRefDonationDesktop = useRef<any>(null);
+  const swiperRefDonationMobile = useRef<any>(null);
+
+  const dataDonation = [
+    [
+      {
+        image: DonationBeras,
+        donationTitle:
+          'Sedekah Beras untuk seluruh para keluarga di afrika selatan',
+        donationTotal: '0',
+        remaining: '30 Hari Lagi',
+      },
+      {
+        image: DonationGempa,
+        donationTitle: 'Bantu Bencana Gempa dengan Kebutuhan Pokok',
+        donationTotal: '500.000.124',
+        remaining: '2 hari lagi',
+      },
+      {
+        image: DonationYatim,
+        donationTitle: 'Penyaluran Bantuan untuk Anak Yatim dan Dhuafa',
+        donationTotal: '235.366.942',
+        remaining: '11 Hari Lagi',
+      },
+    ],
+    [
+      {
+        image: DonationBeras,
+        donationTitle:
+          'Sedekah Beras untuk seluruh para keluarga di afrika selatan',
+        donationTotal: '0',
+        remaining: '30 Hari Lagi',
+      },
+      {
+        image: DonationGempa,
+        donationTitle: 'Bantu Bencana Gempa dengan Kebutuhan Pokok',
+        donationTotal: '500.000.124',
+        remaining: '2 hari lagi',
+      },
+      {
+        image: DonationYatim,
+        donationTitle: 'Penyaluran Bantuan untuk Anak Yatim dan Dhuafa',
+        donationTotal: '235.366.942',
+        remaining: '11 Hari Lagi',
+      },
+    ],
+  ];
+
   return (
     <div>
       <Flowbite theme={{ theme: customTheme }}>
@@ -41,10 +96,10 @@ function Home() {
           <img
             src={BackgroundHero}
             alt="background-hero"
-            className="absolute z-[-1] top-[-50px] md:top-[-200px] 2.5xl:top-[-400px] left-0 w-full md:h-auto md:w-full object-contain"
+            className="absolute z-[-1] top-[-50px] md:top-[-200px] 2.5xl:top-[-400px] left-0 h-full w-full md:h-auto md:w-full object-cover md:object-contain"
           />
           <ContainerHome>
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-8 items-center px-3 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-8 items-center px-8 md:px-0">
               {/* Left Section */}
               <div className="mb-10 md:w-[70%] md:mx-auto lg:mx-0">
                 <p className="text-3xl md:text-5xl text-black-cqf font-bold mb-5">
@@ -200,10 +255,10 @@ function Home() {
 
         {/* Donasi Section */}
         <ContainerHome>
-          <div className="py-6">
+          <div className="py-6 px-8 md:px-0">
             {/* Donasi Title */}
-            <div className="flex justify-between items-center mb-10">
-              <div>
+            <div className="flex flex-col md:flex-row justify-center md:justify-between md:items-center mb-10">
+              <div className="w-full mb-10 md:mb-0 md:w-[75%]">
                 <p className="text-5xl font-semibold text-black-cqf mb-4">
                   Donasi Pilihan
                 </p>
@@ -212,7 +267,38 @@ function Home() {
                   berarti bagi sahabat Cinta quran.
                 </p>
               </div>
-              <div>Arrow</div>
+              {/* Custom Navigation Buttons Desktop */}
+              <div className="hidden md:block">
+                <button
+                  onClick={() => swiperRefDonationDesktop.current?.slidePrev()}
+                  className="custom-prev bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition mr-4"
+                >
+                  <ChevronLeft className="text-blue-500 w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => swiperRefDonationDesktop.current?.slideNext()}
+                  className="custom-next bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition"
+                >
+                  <ChevronRight className="text-blue-500 w-5 h-5" />
+                </button>
+              </div>
+              {/* Custom Navigation Buttons Desktop */}
+              {/* Custom Navigation Buttons Mobile */}
+              <div className="block md:hidden">
+                <button
+                  onClick={() => swiperRefDonationMobile.current?.slidePrev()}
+                  className="custom-prev bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition mr-4"
+                >
+                  <ChevronLeft className="text-blue-500 w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => swiperRefDonationMobile.current?.slideNext()}
+                  className="custom-next bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition"
+                >
+                  <ChevronRight className="text-blue-500 w-5 h-5" />
+                </button>
+              </div>
+              {/* Custom Navigation Buttons Mobile */}
             </div>
             {/* Donasi Title */}
 
@@ -252,15 +338,208 @@ function Home() {
             {/* Donasi Category */}
 
             {/* Donasi List */}
-            <div className='grid grid-cols-1 md:grid-cols-3 md:gap-10 2.5xl:gap-40'>
-              <DonationCard image={DonationBeras} donationTitle='Sedekah Beras untuk seluruh para keluarga di afrika selatan' donationTotal='0' remaining='30 Hari Lagi' />
-              <DonationCard image={DonationGempa} donationTitle='Bantu Bencana Gempa dengan Kebutuhan Pokok' donationTotal='500.000.124' remaining='2 Hari Lagi' />
-              <DonationCard image={DonationYatim} donationTitle='Penyaluran Bantuan untuk Anak Yatim dan Dhuafa' donationTotal='235.366.942' remaining='11 Hari Lagi' />
-            </div>
+            {/* Desktop */}
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={300}
+              autoplay={{ delay: 3000 }}
+              pagination={{
+                clickable: true,
+                el: '.custom-pagination-mobile',
+                renderBullet: (_index, className) => {
+                  return `<span class="${className} custom-bullet-hero-mobile"></span>`;
+                },
+              }}
+              onSwiper={(swiper) => (swiperRefDonationDesktop.current = swiper)}
+              modules={[Autoplay, Pagination]}
+              className="hidden md:block"
+            >
+              {dataDonation.map((donations, _key1) => {
+                return (
+                  <SwiperSlide
+                    key={_key1}
+                    className="grid grid-cols-1 md:grid-cols-3 md:gap-10 2.5xl:gap-40"
+                  >
+                    {donations.map((donation, _key2) => {
+                      return (
+                        <DonationCard
+                          key={_key2}
+                          image={donation.image}
+                          donationTitle={donation.donationTitle}
+                          donationTotal={donation.donationTotal}
+                          remaining={donation.remaining}
+                        />
+                      );
+                    })}
+                  </SwiperSlide>
+                );
+              })}
+
+              {/* Custom Pagination */}
+              <div className="custom-pagination-mobile flex gap-[4px] justify-center mt-8"></div>
+            </Swiper>
+            {/* Desktop */}
+
+            {/* Mobile */}
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={300}
+              autoplay={{ delay: 3000 }}
+              pagination={{
+                clickable: true,
+                el: '.custom-pagination-mobile',
+                renderBullet: (_index, className) => {
+                  return `<span class="${className} custom-bullet-hero-mobile"></span>`;
+                },
+              }}
+              onSwiper={(swiper) => (swiperRefDonationMobile.current = swiper)}
+              modules={[Autoplay, Pagination]}
+              className="block md:hidden"
+            >
+              {dataDonation.map((donationGroup, indexParent) =>
+                donationGroup.map((donation, indexChild) => (
+                  <SwiperSlide
+                    key={`slide-${indexParent}-${indexChild}`}
+                    className="grid grid-cols-1 md:grid-cols-3 md:gap-10 2.5xl:gap-40"
+                  >
+                    <DonationCard
+                      key={`card-${indexParent}-${indexChild}`}
+                      image={donation.image}
+                      donationTitle={donation.donationTitle}
+                      donationTotal={donation.donationTotal}
+                      remaining={donation.remaining}
+                    />
+                  </SwiperSlide>
+                )),
+              )}
+
+              {/* Custom Pagination */}
+              <div className="custom-pagination-mobile flex gap-[4px] justify-center mt-8"></div>
+            </Swiper>
+            {/* Mobile */}
             {/* Donasi List */}
+
+            {/* Donation Information */}
+            <div className="grid grid-cols-1 md:grid-cols-3 mt-13 md:gap-10">
+              <div className="flex flex-col lg:flex-row justify-center items-center">
+                <img
+                  src={ZakatInformation}
+                  alt="zakat-information"
+                  className="mr-4"
+                />
+                <div className="my-8 text-center lg:text-left">
+                  <p className="font-semibold text-2xl text-black-cqf">
+                    Zakat 100%
+                  </p>
+                  <p className="font-normal text-base mt-2 mb-6">
+                    Tunaikan Zakat Anda melalui Program Zakat 100% Amanah.
+                  </p>
+                  <a href="#" className="font-medium text-base text-blue-cqf">
+                    Selengkapnya
+                  </a>
+                </div>
+              </div>
+              <div className="flex flex-col lg:flex-row justify-center items-center">
+                <img
+                  src={BarangBerkah}
+                  alt="zakat-information"
+                  className="mr-4"
+                />
+                <div className="my-8 text-center lg:text-left">
+                  <p className="font-semibold text-2xl text-black-cqf">
+                    Barang Berkah
+                  </p>
+                  <p className="font-normal text-base mt-2 mb-6">
+                    Yuk berikan barang bekas yang masih layak pakai untuk
+                    sahabat kita.
+                  </p>
+                  <a href="#" className="font-medium text-base text-blue-cqf">
+                    Selengkapnya
+                  </a>
+                </div>
+              </div>
+              <div className="flex flex-col lg:flex-row justify-center items-center">
+                <img
+                  src={AmazingBox}
+                  alt="zakat-information"
+                  className="mr-4"
+                />
+                <div className="my-8 text-center lg:text-left">
+                  <p className="font-semibold text-2xl text-black-cqf">
+                    Amazing Box
+                  </p>
+                  <p className="font-normal text-base mt-2 mb-6">
+                    Isi penuh Amazing Box selama 1 bulan, kembalikan kepada
+                    kami.
+                  </p>
+                  <a href="#" className="font-medium text-base text-blue-cqf">
+                    Selengkapnya
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* Donation Information */}
           </div>
         </ContainerHome>
         {/* Donasi Section */}
+
+        {/* Program Pilihan */}
+        <div className="relative py-6 px-8 md:px-0">
+          <img
+            src={BackgroundHero}
+            alt="background-hero"
+            className="absolute z-[-1] top-[-50px] md:top-[-200px] 2.5xl:top-[-400px] left-0 h-full w-full md:h-auto md:w-full object-cover md:object-contain"
+          />
+          <ContainerHome>
+            {/* Program Title */}
+            <div className="flex flex-col md:flex-row justify-center md:justify-between md:items-center mb-10">
+              <div className="w-full mb-10 md:mb-0 md:w-[75%]">
+                <p className="text-5xl font-semibold text-black-cqf mb-4">
+                  Donasi Pilihan
+                </p>
+                <p className="text-lg font-normal">
+                  Pilih dan salurkan donasi melalui program-program kami yang
+                  berarti bagi sahabat Cinta quran.
+                </p>
+              </div>
+              {/* Custom Navigation Buttons Desktop */}
+              <div className="hidden md:block">
+                <button
+                  onClick={() => swiperRefDonationDesktop.current?.slidePrev()}
+                  className="custom-prev bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition mr-4"
+                >
+                  <ChevronLeft className="text-blue-500 w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => swiperRefDonationDesktop.current?.slideNext()}
+                  className="custom-next bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition"
+                >
+                  <ChevronRight className="text-blue-500 w-5 h-5" />
+                </button>
+              </div>
+              {/* Custom Navigation Buttons Desktop */}
+
+              {/* Custom Navigation Buttons Mobile */}
+              <div className="block md:hidden">
+                <button
+                  onClick={() => swiperRefDonationMobile.current?.slidePrev()}
+                  className="custom-prev bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition mr-4"
+                >
+                  <ChevronLeft className="text-blue-500 w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => swiperRefDonationMobile.current?.slideNext()}
+                  className="custom-next bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition"
+                >
+                  <ChevronRight className="text-blue-500 w-5 h-5" />
+                </button>
+              </div>
+              {/* Custom Navigation Buttons Mobile */}
+            </div>
+          </ContainerHome>
+          {/* Program Title */}
+        </div>
+        {/* Program Pilihan */}
       </Flowbite>
     </div>
   );
