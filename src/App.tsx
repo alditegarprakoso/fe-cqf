@@ -7,7 +7,7 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
+import Dashboard from './pages/Dashboard/Dashboard';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
@@ -54,8 +54,8 @@ function App() {
           path="/dashboard"
           element={
             <DefaultLayout>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <ECommerce />
+              <PageTitle title="Dashboard | Cinta Qur'an Foundation" />
+              <Dashboard />
             </DefaultLayout>
           }
         />
@@ -63,7 +63,7 @@ function App() {
           path="/calendar"
           element={
             <DefaultLayout>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Calendar | Cinta Qur'an Foundation" />
               <Calendar />
             </DefaultLayout>
           }
@@ -72,7 +72,7 @@ function App() {
           path="/profile"
           element={
             <DefaultLayout>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Profile | Cinta Qur'an Foundation" />
               <Profile />
             </DefaultLayout>
           }
@@ -81,7 +81,7 @@ function App() {
           path="/forms/form-elements"
           element={
             <DefaultLayout>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Elements | Cinta Qur'an Foundation" />
               <FormElements />
             </DefaultLayout>
           }
@@ -90,7 +90,7 @@ function App() {
           path="/forms/form-layout"
           element={
             <DefaultLayout>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Layout | Cinta Qur'an Foundation" />
               <FormLayout />
             </DefaultLayout>
           }
@@ -99,7 +99,7 @@ function App() {
           path="/tables"
           element={
             <DefaultLayout>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Tables | Cinta Qur'an Foundation" />
               <Tables />
             </DefaultLayout>
           }
@@ -108,7 +108,7 @@ function App() {
           path="/settings"
           element={
             <DefaultLayout>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Settings | Cinta Qur'an Foundation" />
               <Settings />
             </DefaultLayout>
           }
@@ -117,7 +117,7 @@ function App() {
           path="/chart"
           element={
             <DefaultLayout>
-              <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Basic Chart | Cinta Qur'an Foundation" />
               <Chart />
             </DefaultLayout>
           }
@@ -126,7 +126,7 @@ function App() {
           path="/ui/alerts"
           element={
             <DefaultLayout>
-              <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Alerts | Cinta Qur'an Foundation" />
               <Alerts />
             </DefaultLayout>
           }
@@ -135,7 +135,7 @@ function App() {
           path="/ui/buttons"
           element={
             <DefaultLayout>
-              <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Buttons | Cinta Qur'an Foundation" />
               <Buttons />
             </DefaultLayout>
           }
@@ -144,7 +144,7 @@ function App() {
           path="/auth/signin"
           element={
             <DefaultLayout>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin | Cinta Qur'an Foundation" />
               <SignIn />
             </DefaultLayout>
           }
@@ -153,7 +153,7 @@ function App() {
           path="/auth/signup"
           element={
             <DefaultLayout>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signup | Cinta Qur'an Foundation" />
               <SignUp />
             </DefaultLayout>
           }
