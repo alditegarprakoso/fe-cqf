@@ -552,13 +552,13 @@ function Home() {
               {/* Custom Navigation Buttons Mobile */}
               <div className="block md:hidden">
                 <button
-                  onClick={() => swiperRefDonationMobile.current?.slidePrev()}
+                  onClick={() => swiperRefProgramMobile.current?.slidePrev()}
                   className="custom-prev bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition mr-4"
                 >
                   <ChevronLeft className="text-blue-500 w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => swiperRefDonationMobile.current?.slideNext()}
+                  onClick={() => swiperRefProgramMobile.current?.slideNext()}
                   className="custom-next bg-white border border-blue-400 p-3 rounded-full shadow-md hover:bg-blue-100 transition"
                 >
                   <ChevronRight className="text-blue-500 w-5 h-5" />
@@ -570,84 +570,215 @@ function Home() {
 
             {/* Program Content */}
             <div className="max-w-6xl mx-auto px-4 py-8">
-              {/* Grid Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Large Card */}
-                <div className="md:col-span-2 relative overflow-hidden rounded-lg">
-                  <img
-                    src={BacaQuran}
-                    alt="Indonesia Bisa Baca Quran"
-                    className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
-                    <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
-                      Indonesia Bisa Baca Quran
-                    </h2>
-                    <p className="text-lg">
-                      Sebuah Fakta mengejutkan menyatakan bahwa 53,57% kaum
-                      muslimin di Indonesia tidak bisa membaca Al-Quran.
-                    </p>
-                  </div>
-                </div>
+              {/* Desktop */}
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={300}
+                autoplay={{ delay: 3000 }}
+                pagination={{
+                  clickable: true,
+                  el: '.custom-pagination-mobile',
+                  renderBullet: (_index, className) => {
+                    return `<span class="${className} custom-bullet-hero-mobile"></span>`;
+                  },
+                }}
+                onSwiper={(swiper) =>
+                  (swiperRefProgramDesktop.current = swiper)
+                }
+                modules={[Autoplay, Pagination]}
+                className="hidden md:block"
+              >
+                {Array.from({ length: 3 }, (_, _index) => (
+                  <SwiperSlide>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {/* Large Card */}
+                      <div className="md:col-span-2 relative overflow-hidden rounded-lg">
+                        <img
+                          src={BacaQuran}
+                          alt="Indonesia Bisa Baca Quran"
+                          className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
+                            Indonesia Bisa Baca Quran
+                          </h2>
+                          <p className="text-lg">
+                            Sebuah Fakta mengejutkan menyatakan bahwa 53,57%
+                            kaum muslimin di Indonesia tidak bisa membaca
+                            Al-Quran.
+                          </p>
+                        </div>
+                      </div>
 
-                {/* Medium Card */}
-                <div className="relative overflow-hidden rounded-lg">
-                  <img
-                    src={QuranCall}
-                    alt="Cinta Quran Call"
-                    className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4 text-white">
-                    <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
-                      CintaQuran Call
-                    </h2>
-                    <p className="text-lg">
-                      Cinta Quran Call merupakan layanan pendampingan.
-                    </p>
-                  </div>
-                </div>
+                      {/* Medium Card */}
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={QuranCall}
+                          alt="Cinta Quran Call"
+                          className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4 text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
+                            CintaQuran Call
+                          </h2>
+                          <p className="text-lg">
+                            Cinta Quran Call merupakan layanan pendampingan.
+                          </p>
+                        </div>
+                      </div>
 
-                {/* Small Cards */}
-                <div className="relative overflow-hidden rounded-lg">
-                  <img
-                    src={KajianPerkantoran}
-                    alt="Kajian Perkantoran"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
-                    <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
-                      Kajian Perkantoran
-                    </h2>
-                  </div>
-                </div>
+                      {/* Small Cards */}
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={KajianPerkantoran}
+                          alt="Kajian Perkantoran"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Kajian Perkantoran
+                          </h2>
+                        </div>
+                      </div>
 
-                <div className="relative overflow-hidden rounded-lg">
-                  <img
-                    src={MajelisCintaQuran}
-                    alt="Majelis Cinta Quran"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
-                    <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
-                      Majelis Cinta Quran
-                    </h2>
-                  </div>
-                </div>
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={MajelisCintaQuran}
+                          alt="Majelis Cinta Quran"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Majelis Cinta Quran
+                          </h2>
+                        </div>
+                      </div>
 
-                <div className="relative overflow-hidden rounded-lg">
-                  <img
-                    src={QuranTV}
-                    alt="Cinta Quran TV"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
-                    <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
-                      Cinta Quran TV
-                    </h2>
-                  </div>
-                </div>
-                {/* Small Cards */}
-              </div>
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={QuranTV}
+                          alt="Cinta Quran TV"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Cinta Quran TV
+                          </h2>
+                        </div>
+                      </div>
+                      {/* Small Cards */}
+                    </div>
+                  </SwiperSlide>
+                ))}
+
+                {/* Custom Pagination */}
+                <div className="custom-pagination-mobile flex gap-[4px] justify-center mt-8"></div>
+              </Swiper>
+              {/* Desktop */}
+
+              {/* Mobile */}
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={300}
+                autoplay={{ delay: 3000 }}
+                pagination={{
+                  clickable: true,
+                  el: '.custom-pagination-mobile',
+                  renderBullet: (_index, className) => {
+                    return `<span class="${className} custom-bullet-hero-mobile"></span>`;
+                  },
+                }}
+                onSwiper={(swiper) => (swiperRefProgramMobile.current = swiper)}
+                modules={[Autoplay, Pagination]}
+                className="block md:hidden"
+              >
+                {Array.from({ length: 3 }, (_, _index) => (
+                  <SwiperSlide>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {/* Large Card */}
+                      <div className="md:col-span-2 relative overflow-hidden rounded-lg">
+                        <img
+                          src={BacaQuran}
+                          alt="Indonesia Bisa Baca Quran"
+                          className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
+                            Indonesia Bisa Baca Quran
+                          </h2>
+                          <p className="text-lg">
+                            Sebuah Fakta mengejutkan menyatakan bahwa 53,57%
+                            kaum muslimin di Indonesia tidak bisa membaca
+                            Al-Quran.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Medium Card */}
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={QuranCall}
+                          alt="Cinta Quran Call"
+                          className="w-[360px] h-[300px] md:w-full md:h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4 text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-4">
+                            CintaQuran Call
+                          </h2>
+                          <p className="text-lg">
+                            Cinta Quran Call merupakan layanan pendampingan.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Small Cards */}
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={KajianPerkantoran}
+                          alt="Kajian Perkantoran"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Kajian Perkantoran
+                          </h2>
+                        </div>
+                      </div>
+
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={MajelisCintaQuran}
+                          alt="Majelis Cinta Quran"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Majelis Cinta Quran
+                          </h2>
+                        </div>
+                      </div>
+
+                      <div className="relative overflow-hidden rounded-lg">
+                        <img
+                          src={QuranTV}
+                          alt="Cinta Quran TV"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-end justify-center text-white">
+                          <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold mb-6">
+                            Cinta Quran TV
+                          </h2>
+                        </div>
+                      </div>
+                      {/* Small Cards */}
+                    </div>
+                  </SwiperSlide>
+                ))}
+
+                {/* Custom Pagination */}
+                <div className="custom-pagination-mobile flex gap-[4px] justify-center mt-8"></div>
+              </Swiper>
+              {/* Mobile */}
             </div>
             {/* Program Content */}
           </ContainerHome>
@@ -758,11 +889,11 @@ function Home() {
         {/* Kajian Inspiratif */}
 
         {/* Amazing Group */}
-        <div className="relative mt-[200px]">
+        <div className="relative mt-8 md:mt-[200px]">
           <img
             src={BackgroundAmazingGroup}
             alt="background-program"
-            className="absolute z-[-1] top-[-50px] md:top-[-520px] 2.5xl:top-[-600px] left-0 h-full w-full md:h-auto md:w-full object-cover md:object-contain"
+            className="absolute z-[-1] top-[-160px] md:top-[-200px] lg:top-[-500px] 2.5xl:top-[-600px] left-0 h-full w-full md:h-auto md:w-full object-cover md:object-contain"
           />
           <ContainerHome>
             <p className="text-5xl font-semibold text-black-cqf text-center mb-8">
@@ -847,7 +978,7 @@ function Home() {
             className="absolute z-[-1] bottom-0 left-0 h-full w-full md:h-auto md:w-full object-cover md:object-contain"
           />
           <ContainerHome>
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-1 lg:grid-cols-4">
               {/* CQF */}
               <div>
                 <img src={LogoCQF} alt="logo-cqf" />
@@ -868,7 +999,7 @@ function Home() {
               {/* CQF */}
 
               {/* Program */}
-              <div className="flex flex-col items-center text-base font-normal text-black-cqf">
+              <div className="flex flex-col mb-8 lg:mb-0 items-start lg:items-center text-base font-normal text-black-cqf">
                 <div className="text-left">
                   <p>Program</p>
                   <p>Donasi</p>
@@ -880,7 +1011,7 @@ function Home() {
               {/* Program */}
 
               {/* Kebijakan */}
-              <div className="flex flex-col items-center text-base font-normal text-black-cqf">
+              <div className="flex flex-col mb-8 lg:mb-0 items-start lg:items-center text-base font-normal text-black-cqf">
                 <div className="text-left">
                   <p>Volunteer</p>
                   <p>Tentang Kami</p>
@@ -895,7 +1026,7 @@ function Home() {
               <div>
                 {/* Location */}
                 <div className="flex mb-3">
-                  <LocationIcon className="mr-3" />
+                  <LocationIcon className="mr-3 md:mr-0 lg:mr-3" />
                   <p className="text-base font-normal text-black-cqf">
                     Jl. Parikesit Raya No.35-37 Bantarjati, Bogor Utara, Kota
                     Bogor 16153, Jawa Barat, Indonesia.
@@ -928,9 +1059,9 @@ function Home() {
                 {/* Follow Us */}
                 <div>
                   <p className="text-base font-semibold text-black-cqf">
-                    Ikuti kami di{' '}
+                    Ikuti kami di
                   </p>
-                  <div className="flex">
+                  <div className="flex my-3">
                     <div className=" mr-3 flex justify-center items-center h-7 w-7 rounded-full bg-[#636363]">
                       <FacebookIcon />
                     </div>
