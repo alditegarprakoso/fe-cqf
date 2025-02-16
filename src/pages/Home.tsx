@@ -372,7 +372,7 @@ function Home() {
             <Swiper
               slidesPerView={1}
               spaceBetween={300}
-              autoplay={{ delay: 3000 }}
+              autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
               pagination={{
                 clickable: true,
                 el: '.custom-pagination-mobile',
@@ -385,15 +385,17 @@ function Home() {
               className="hidden md:block"
             >
               {dataDonation.map((donations, _key1) => {
+                console.log("Donations:", donations, "Tipe:", typeof donations, "Is Array?", Array.isArray(donations));
                 return (
                   <SwiperSlide
-                    key={_key1}
+                  key={`donation-desktop-group-${_key1}`}
                     className="grid grid-cols-1 md:grid-cols-3 md:gap-10 2.5xl:gap-40"
                   >
                     {donations.map((donation, _key2) => {
+                      console.log("Donation:", donation, "Tipe:", typeof donation);
                       return (
                         <DonationCard
-                          key={_key2}
+                          key={`donation-desktop-card-${_key2}`}
                           image={donation.image}
                           donationTitle={donation.donationTitle}
                           donationTotal={donation.donationTotal}
@@ -429,11 +431,11 @@ function Home() {
               {dataDonation.map((donationGroup, indexParent) =>
                 donationGroup.map((donation, indexChild) => (
                   <SwiperSlide
-                    key={`slide-${indexParent}-${indexChild}`}
+                    key={`donation-mobile-group-${indexParent}-${indexChild}`}
                     className="grid grid-cols-1 md:grid-cols-3 md:gap-10 2.5xl:gap-40"
                   >
                     <DonationCard
-                      key={`card-${indexParent}-${indexChild}`}
+                      key={`donation-mobile-card-${indexParent}-${indexChild}`}
                       image={donation.image}
                       donationTitle={donation.donationTitle}
                       donationTotal={donation.donationTotal}
@@ -589,7 +591,7 @@ function Home() {
                 className="hidden md:block"
               >
                 {Array.from({ length: 3 }, (_, _index) => (
-                  <SwiperSlide>
+                  <SwiperSlide key={`program-desktop-${_index}`}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {/* Large Card */}
                       <div className="md:col-span-2 relative overflow-hidden rounded-lg">
@@ -693,7 +695,7 @@ function Home() {
                 className="block md:hidden"
               >
                 {Array.from({ length: 3 }, (_, _index) => (
-                  <SwiperSlide>
+                  <SwiperSlide key={`program-mobile-${_index}`}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {/* Large Card */}
                       <div className="md:col-span-2 relative overflow-hidden rounded-lg">
@@ -873,7 +875,7 @@ function Home() {
 
                 {/* Small Card */}
                 {[...Array(15)].map((_, _index) => (
-                  <div className="relative overflow-hidden rounded-lg">
+                  <div className="relative overflow-hidden rounded-lg" key={`kajian-small-card-${_index}`}>
                     <img
                       src={KajianInspiratif}
                       alt="Cinta Quran Call"
@@ -904,7 +906,7 @@ function Home() {
             <div className="mb-20">
               <Marquee speed={60} direction="right">
                 {[...Array(15)].map((_, index) => (
-                  <div className="bg-white m-4 p-4 rounded-lg shadow-md">
+                  <div className="bg-white m-4 p-4 rounded-lg shadow-md" key={`client-1-${index}`}>
                     <img
                       src={
                         (index + 1) % 2 == 0
@@ -922,7 +924,7 @@ function Home() {
 
               <Marquee speed={60} direction="left">
                 {[...Array(15)].map((_, index) => (
-                  <div className="bg-white m-4 p-4 rounded-lg shadow-md">
+                  <div className="bg-white m-4 p-4 rounded-lg shadow-md" key={`client-2-${index}`}>
                     <img
                       src={
                         (index + 1) % 2 == 0
