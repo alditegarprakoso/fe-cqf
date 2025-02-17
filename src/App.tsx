@@ -11,6 +11,8 @@ import Login from './pages/Login';
 import NavigationBar from './layout/Navbar';
 import Donation from './pages/Donatioin/Donation';
 import FormDonation from './pages/Donatioin/FormDonation';
+import Donatur from './pages/Donatur/Donatur';
+import FormDonatur from './pages/Donatur/FormDonatur';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -50,6 +52,7 @@ function App() {
             </DefaultLayout>
           }
         />
+        {/* Donation Route */}
         <Route
           path="/dashboard/donation"
           element={
@@ -77,6 +80,39 @@ function App() {
             </DefaultLayout>
           }
         />
+        {/* Donation Route */}
+
+        {/* Donatur Route */}
+        <Route
+          path="/dashboard/donation/list"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Donatur | Cinta Qur'an Foundation" />
+              <Donatur />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/donation/list/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Donatur | Cinta Qur'an Foundation" />
+              <FormDonatur />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/donation/list/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Donatur | Cinta Qur'an Foundation" />
+              <FormDonatur isEdit />
+            </DefaultLayout>
+          }
+        />
+        {/* Donatur Route */}
       </Route>
       {/* Protected Route */}
     </Routes>

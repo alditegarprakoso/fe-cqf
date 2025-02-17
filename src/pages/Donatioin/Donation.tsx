@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import TableList from '../../components/Tables/TableList';
+import TableList from './TableList';
 import { Button, Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
