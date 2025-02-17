@@ -19,11 +19,22 @@ export const customTheme: CustomFlowbiteTheme = {
         'bg-white text-blue-cqf px-8 max-w-[250px] border border-blue-cqf hover:bg-blue-cqf hover:text-white',
       btnWA: 'bg-[#00C062] min-w[180px] h-[40px] text-white',
       btnBlue: 'bg-blue-cqf text-white shadow-lg max-w-max',
+      btnAction: 'bg-transparent p-0 m-0',
     },
   },
   progress: {
     color: {
       progressCqf: 'bg-green-cqf',
+    },
+  },
+  select: {
+    field: {
+      select: {
+        colors: {
+          white:
+            'block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-white text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg',
+        },
+      },
     },
   },
 };

@@ -1,38 +1,25 @@
-import { Pencil, Trash2 } from 'lucide-react';
-import DonationBeras from '../../images/homepage/donation/donation-beras.png';
-import DonationGempa from '../../images/homepage/donation/donation-gempa.png';
-import DonationYatim from '../../images/homepage/donation/donation-yatim.png';
+import { Button, Modal } from 'flowbite-react';
+import { CircleAlert, Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const dataDonation = [
-  {
-    image: DonationBeras,
-    donationTitle:
-      'Sedekah Beras untuk seluruh para keluarga di afrika selatan',
-    donationTotal: '0',
-    donationCategory: 'Test Category',
-    donationStatus: 'Aktif',
-    remaining: '30 Hari Lagi',
-  },
-  {
-    image: DonationGempa,
-    donationTitle: 'Bantu Bencana Gempa dengan Kebutuhan Pokok',
-    donationTotal: '500.000.124',
-    donationCategory: 'Test Category',
-    donationStatus: 'Aktif',
-    remaining: '2 hari lagi',
-  },
-  {
-    image: DonationYatim,
-    donationTitle: 'Penyaluran Bantuan untuk Anak Yatim dan Dhuafa',
-    donationTotal: '235.366.942',
-    donationCategory: 'Test Category',
-    donationStatus: 'Aktif',
-    remaining: '11 Hari Lagi',
-  },
-];
+interface TableListProps {
+  tableTitle: string[];
+  dataDonation: {
+    image: string;
+    donationTitle: string;
+    donationTotal: string;
+    donationCategory: string;
+    donationStatus: string;
+    remaining: string;
+  }[];
+  editPath: string;
+}
 
-const TableList = (props: any) => {
-  const { tableTitle } = props;
+const TableList = (props: TableListProps) => {
+  const { tableTitle, dataDonation, editPath } = props;
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="max-w-full overflow-x-auto">
@@ -43,10 +30,16 @@ const TableList = (props: any) => {
                 <th
                   key={key}
                   className={`py-4 px-4 font-medium text-black dark:text-white ${
-                    title === 'Donasi' && 'md:w-[50%]'
+                    title === 'Donasi' && 'min-w-[250px] md:w-[50%]'
                   }`}
                 >
-                  {title}
+                  <p
+                    className={`text-black dark:text-white ${
+                      title === 'Aksi' && 'lg:ml-10'
+                    }`}
+                  >
+                    {title}
+                  </p>
                 </th>
               ))}
             </tr>
@@ -59,8 +52,8 @@ const TableList = (props: any) => {
                     {key + 1}
                   </h5>
                 </td>
-                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <h5 className="font-medium text-black dark:text-white">
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark w-full md:w-[50%]">
+                  <h5 className="font-medium text-black dark:text-white md:whitespace-normal">
                     {donation.donationTitle}
                   </h5>
                 </td>
@@ -81,7 +74,7 @@ const TableList = (props: any) => {
                         ? 'bg-success text-success'
                         : donation.donationStatus === 'Tidak Aktif'
                         ? 'bg-danger text-danger'
-                        : 'bg-warning text-warning'
+                        : 'bg-gray-300 text-gray-700'
                     }`}
                   >
                     {donation.donationStatus}
@@ -89,10 +82,18 @@ const TableList = (props: any) => {
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-blue-cqf">
+                    <Button
+                      as={Link}
+                      to={`${editPath}/${key}`}
+                      color="btnAction"
+                    >
                       <Pencil />
-                    </button>
-                    <button className="hover:text-danger">
+                    </Button>
+                    <button
+                      className="hover:text-danger"
+                      aria-label="Delete"
+                      onClick={() => setOpenModal(true)}
+                    >
                       <Trash2 />
                     </button>
                   </div>
@@ -102,6 +103,31 @@ const TableList = (props: any) => {
           </tbody>
         </table>
       </div>
+
+      <Modal
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(true)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="flex flex-col items-center">
+            <CircleAlert width={50} height={50} color='red' className='mb-5' />
+            <h3 className="mb-5 text-lg font-normal text-black dark:text-white">
+              Apakah kamu yakin ingin menghapus data ini?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() => setOpenModal(false)}>
+                Ya, hapus data
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                Batal
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

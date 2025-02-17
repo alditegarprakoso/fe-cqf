@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NavigationBar from './layout/Navbar';
 import Donation from './pages/Donatioin/Donation';
+import FormDonation from './pages/Donatioin/FormDonation';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -55,6 +56,24 @@ function App() {
             <DefaultLayout>
               <PageTitle title="Daftar Donasi | Cinta Qur'an Foundation" />
               <Donation />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/dashboard/donation/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Buat Donasi Baru | Cinta Qur'an Foundation" />
+              <FormDonation />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/dashboard/donation/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Donasi | Cinta Qur'an Foundation" />
+              <FormDonation isEdit={true} />
             </DefaultLayout>
           }
         />
