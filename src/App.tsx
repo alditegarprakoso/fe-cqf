@@ -13,6 +13,8 @@ import Donation from './pages/Donatioin/Donation';
 import FormDonation from './pages/Donatioin/FormDonation';
 import Donatur from './pages/Donatur/Donatur';
 import FormDonatur from './pages/Donatur/FormDonatur';
+import CategoryDonation from './pages/Donatioin/Category/CategoryDonation';
+import FormCategoryDonation from './pages/Donatioin/Category/FormCategoryDonation';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -107,12 +109,44 @@ function App() {
           path="/dashboard/donation/list/edit/:id"
           element={
             <DefaultLayout>
-              <PageTitle title="Tambah Donatur | Cinta Qur'an Foundation" />
-              <FormDonatur isEdit />
+              <PageTitle title="Edit Donatur | Cinta Qur'an Foundation" />
+              <FormDonatur isEdit={true} />
             </DefaultLayout>
           }
         />
         {/* Donatur Route */}
+
+        {/* Category Donation */}
+        <Route
+          path="/dashboard/donation/category"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Kategori Donasi | Cinta Qur'an Foundation" />
+              <CategoryDonation />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/donation/category/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Kategori Donasi | Cinta Qur'an Foundation" />
+              <FormCategoryDonation />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/donation/category/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Donatur | Cinta Qur'an Foundation" />
+              <FormCategoryDonation isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Category Donation */}
       </Route>
       {/* Protected Route */}
     </Routes>
