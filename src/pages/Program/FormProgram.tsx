@@ -3,7 +3,7 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { Button, Label, Select, FileInput } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
-const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
+const FormProgam: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   const [thumbnail, setThumbnail] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,18 +21,18 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       path: '/dashboard',
     },
     {
-      name: 'Donasi',
-      path: '/dashboard/donation',
+      name: 'Daftar Program',
+      path: '/dashboard/program',
     },
   ];
 
-  const title = isEdit ? 'Edit Donasi' : 'Buat Donasi Baru';
+  const title = isEdit ? 'Edit Program' : 'Tambah Program';
   return (
     <>
       <Breadcrumb pageName={title} direction={direction} />
       <Button
         as={Link}
-        to={'/dashboard/donation'}
+        to={'/dashboard/program'}
         className="my-4"
         color="btnBlue"
       >
@@ -41,18 +41,31 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
 
       <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="px-7 py-4">
-          {/* Nama */}
+          {/* Judul */}
           <div className="my-5">
             <label className="mb-3 block text-black dark:text-white">
-              Nama
+              Judul
             </label>
             <input
               type="text"
-              placeholder="Masukkan nama donasi"
+              placeholder="Masukkan judul program"
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
-          {/* Nama */}
+          {/* Judul */}
+
+          {/* Sub Judul */}
+          <div className="mb-5">
+            <label className="mb-3 block text-black dark:text-white">
+              Sub Judul
+            </label>
+            <input
+              type="text"
+              placeholder="Masukkan sub judul"
+              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            />
+          </div>
+          {/* Sub Judul */}
 
           {/* Deskripsi */}
           <div className="mb-5">
@@ -66,20 +79,6 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             ></textarea>
           </div>
           {/* Deskripsi */}
-
-          {/* Target */}
-          <div className="mb-5">
-            <label className="mb-3 block text-black dark:text-white">
-              Target
-            </label>
-            <input
-              type="number"
-              min={0}
-              placeholder="Masukkan target donasi"
-              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
-          {/* Target */}
 
           {/* Status */}
           <div className="mb-5">
@@ -126,7 +125,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
 
           {/* Save */}
           <div className="mb-3">
-            <Button color="btnBlue">{isEdit ? 'Edit Donasi' : 'Buat Donasi'}</Button>
+            <Button color="btnBlue">{isEdit ? 'Edit Program' : 'Tambah Program'}</Button>
           </div>
           {/* Save */}
         </div>
@@ -135,4 +134,4 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   );
 };
 
-export default FormDonation;
+export default FormProgam;

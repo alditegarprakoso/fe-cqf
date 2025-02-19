@@ -169,7 +169,7 @@ const FormDonatur: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
 
           {/* Save */}
           <div className="mb-3">
-            <Button color="btnBlue">Tambah Donatur</Button>
+            <Button color="btnBlue">{isEdit ? 'Edit Donatur' : 'Tambah Donatur'}</Button>
           </div>
           {/* Save */}
         </div>

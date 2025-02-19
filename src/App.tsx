@@ -15,6 +15,8 @@ import Donatur from './pages/Donatur/Donatur';
 import FormDonatur from './pages/Donatur/FormDonatur';
 import CategoryDonation from './pages/Donatioin/Category/CategoryDonation';
 import FormCategoryDonation from './pages/Donatioin/Category/FormCategoryDonation';
+import ProgramPage from './pages/Program/ProgramPage';
+import FormProgam from './pages/Program/FormProgram';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -147,6 +149,38 @@ function App() {
           }
         />
         {/* Category Donation */}
+
+        {/* Program */}
+        <Route
+          path="/dashboard/program"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Program | Cinta Qur'an Foundation" />
+              <ProgramPage />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/program/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Program | Cinta Qur'an Foundation" />
+              <FormProgam />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/program/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Program | Cinta Qur'an Foundation" />
+              <FormProgam isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Program */}
       </Route>
       {/* Protected Route */}
     </Routes>
