@@ -19,8 +19,12 @@ import ProgramPage from './pages/Program/ProgramPage';
 import FormProgam from './pages/Program/FormProgram';
 import KajianPage from './pages/Kajian/KajianPage';
 import CategoryKajian from './pages/Kajian/Category/CategoryKajian';
-import FormCategoryKajian from './pages/Kajian/Category/FormCategorykajian';
+import FormCategoryKajian from './pages/Kajian/Category/FormCategoryKajian';
 import FormKajian from './pages/Kajian/FormKajian';
+import GroupPage from './pages/Group/GroupPage';
+import FormGroup from './pages/Group/FormGroup';
+import UsersPage from './pages/Users/UsersPage';
+import FormUsers from './pages/Users/FormUsers';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -243,12 +247,76 @@ function App() {
           path="/dashboard/kajian/category/edit/:id"
           element={
             <DefaultLayout>
-              <PageTitle title="Edit Ketgori Kajian | Cinta Qur'an Foundation" />
+              <PageTitle title="Edit Kategori Kajian | Cinta Qur'an Foundation" />
               <FormCategoryKajian isEdit={true} />
             </DefaultLayout>
           }
         />
         {/* Category Kajian */}
+
+        {/* Group */}
+        <Route
+          path="/dashboard/group"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Group | Cinta Qur'an Foundation" />
+              <GroupPage />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/group/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Group | Cinta Qur'an Foundation" />
+              <FormGroup />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/group/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Group | Cinta Qur'an Foundation" />
+              <FormGroup isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Group */}
+
+        {/* Users */}
+        <Route
+          path="/dashboard/users"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Pengguna | Cinta Qur'an Foundation" />
+              <UsersPage />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/users/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Pengguna | Cinta Qur'an Foundation" />
+              <FormUsers />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/users/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Pengguna | Cinta Qur'an Foundation" />
+              <FormUsers isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Users */}
       </Route>
       {/* Protected Route */}
     </Routes>
