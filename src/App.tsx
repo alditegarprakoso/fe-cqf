@@ -17,6 +17,10 @@ import CategoryDonation from './pages/Donatioin/Category/CategoryDonation';
 import FormCategoryDonation from './pages/Donatioin/Category/FormCategoryDonation';
 import ProgramPage from './pages/Program/ProgramPage';
 import FormProgam from './pages/Program/FormProgram';
+import KajianPage from './pages/Kajian/KajianPage';
+import CategoryKajian from './pages/Kajian/Category/CategoryKajian';
+import FormCategoryKajian from './pages/Kajian/Category/FormCategorykajian';
+import FormKajian from './pages/Kajian/FormKajian';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -181,6 +185,70 @@ function App() {
           }
         />
         {/* Program */}
+
+        {/* Kajian */}
+        <Route
+          path="/dashboard/kajian"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Kajian | Cinta Qur'an Foundation" />
+              <KajianPage />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/kajian/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Kajian | Cinta Qur'an Foundation" />
+              <FormKajian />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/kajian/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Kajian | Cinta Qur'an Foundation" />
+              <FormKajian isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Kajian */}
+
+        {/* Category Kajian */}
+        <Route
+          path="/dashboard/kajian/category"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Daftar Kategori Kajian | Cinta Qur'an Foundation" />
+              <CategoryKajian />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/kajian/category/add"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Tambah Kategori Kajian | Cinta Qur'an Foundation" />
+              <FormCategoryKajian />
+            </DefaultLayout>
+          }
+        />
+
+        <Route
+          path="/dashboard/kajian/category/edit/:id"
+          element={
+            <DefaultLayout>
+              <PageTitle title="Edit Ketgori Kajian | Cinta Qur'an Foundation" />
+              <FormCategoryKajian isEdit={true} />
+            </DefaultLayout>
+          }
+        />
+        {/* Category Kajian */}
       </Route>
       {/* Protected Route */}
     </Routes>
