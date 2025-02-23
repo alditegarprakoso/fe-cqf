@@ -21,7 +21,7 @@ export default function NavigationBar() {
         </NavbarBrand>
         <NavbarToggle />
         <NavbarCollapse>
-          <NavbarLink as={Link} to="/" active>
+          <NavbarLink as={Link} to="/">
             <p className="text-base">Program</p>
           </NavbarLink>
           <NavbarLink as={Link} to="/">

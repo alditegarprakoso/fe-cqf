@@ -51,7 +51,15 @@ function App() {
           </>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={
+          <>
+            <NavigationBar />
+            <Login />
+          </>
+        }
+      />
 
       {/* Protected Route */}
       <Route path="/" element={<ProtectedRoute />}>
