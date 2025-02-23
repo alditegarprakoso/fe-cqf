@@ -33,10 +33,9 @@ function Login() {
 
     try {
       const response = await login(email, password);
-      console.log(response);
 
       if (response.status === 200) {
-        localStorage.setItem('user', response.data.user);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         localStorage.setItem('token', response.data.token);
         navigate('/dashboard');
       }

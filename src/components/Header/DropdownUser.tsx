@@ -1,11 +1,29 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { logout } from '../../services/AuthServices';
+
 import ClickOutside from '../ClickOutside';
-import UserOne from '../../images/user/user-01.png';
+import DefaultPicture from '../../images/user/default-picture.jpg';
 import LogoutIcon from '../Icon/LogoutIcon';
 
 const DropdownUser = () => {
+  const navigate = useNavigate();
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      logout();
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -16,17 +34,19 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {user.name}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">{user.position}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
-        </span>
+        <img
+          src={DefaultPicture}
+          alt="User"
+          className="h-12 w-12 rounded-full"
+        />
 
         <svg
-          className="hidden fill-current sm:block"
+          className="fill-current sm:block"
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -47,7 +67,10 @@ const DropdownUser = () => {
         <div
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          >
             <LogoutIcon className="fill-current" />
             Log Out
           </button>
