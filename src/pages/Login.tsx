@@ -15,6 +15,12 @@ function Login() {
   const [validation, setValidation] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
+  React.useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/dashboard');
+    }
+  }, []);
+
   const handleLogin = async () => {
     if (
       !email ||

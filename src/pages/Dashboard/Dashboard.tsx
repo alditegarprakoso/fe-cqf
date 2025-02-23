@@ -8,8 +8,13 @@ import {
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
   return (
     <>
+      <p className="text-2xl mb-10">
+        Selamat datang, <span className="font-medium">{user.name}</span>
+      </p>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats title="Donasi Berjalan" total="3">
           <HeartHandshake />
