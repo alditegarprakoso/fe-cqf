@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
 import { CircleAlert, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface TableListProps {
   tableTitle: string[];
   data: {
     id: number;
-    image: string;
+    photo: string;
     name: string;
     email: string;
     position: string;
@@ -76,9 +76,9 @@ const TableList = (props: TableListProps) => {
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <img
-                    src={item.image ? item.image : DefaultPicture}
+                    src={item.photo ? item.photo : DefaultPicture}
                     alt={item.name}
-                    className="h-auto w-[100px] object-contain rounded-full"
+                    className="h-[100px] w-[100px] object-cover rounded-full"
                   />
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">

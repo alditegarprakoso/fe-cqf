@@ -11,7 +11,7 @@ const UsersPage: React.FC = () => {
   const [data, setData] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(1);
-  const [perPage, setPerPage] = React.useState(5);
+  const [perPage, _setPerPage] = React.useState(5);
   const [search, setSearch] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [isDelete, setIsDelete] = React.useState(false);
