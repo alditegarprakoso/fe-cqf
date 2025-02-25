@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { Button, Label, Select, FileInput } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Button,
+  Label,
+  Select,
+  FileInput,
+  Spinner,
+  Alert,
+} from 'flowbite-react';
 
-const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
-  const [photo, setPhoto] = useState<string | null>(null);
+import { insertUser } from '../../services/UserServices';
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setPhoto(reader.result as string);
-      reader.readAsDataURL(file);
-    }
-  };
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+
+const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [position, setPosition] = useState<string>('');
+  const [status, setStatus] = useState<string>('Aktif');
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertType, setAlertType] = useState<string>('');
 
   const direction = [
     {
@@ -27,6 +39,72 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   ];
 
   const title = isEdit ? 'Edit Pengguna' : 'Tambah Pengguna';
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setPhoto(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const clearForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setPosition('');
+    setStatus('');
+    setPhoto(null);
+    setPreview(null);
+  };
+
+  const insertUserFunc = async () => {
+    if (name === '' || password !== confirmPassword) {
+      alert('Password dan Konfirmasi Password tidak cocok!');
+      return;
+    }
+
+    const payload = {
+      name,
+      email,
+      password,
+      position,
+      status,
+      photo,
+    };
+
+    setLoading(true);
+    try {
+      await insertUser(payload);
+
+      setAlertType('success');
+      setMessage('Data Berhasil Ditambahkan!');
+      setShowAlert(true);
+      clearForm();
+    } catch (error: any) {
+      console.log(error);
+      setShowAlert(true);
+      setAlertType('failure');
+      setMessage(
+        error.response?.data?.errors ||
+          error.response?.data?.message ||
+          'Terjadi kesalahan',
+      );
+    } finally {
+      setLoading(false);
+      const scrollToMe = document.getElementById('scrollToMe');
+      if (scrollToMe) {
+        scrollToMe.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        });
+      }
+    }
+  };
+
+  const updateUserFunc = () => {};
   return (
     <>
       <Breadcrumb pageName={title} direction={direction} />
@@ -39,6 +117,20 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
         Kembali
       </Button>
 
+      <div id="scrollToMe" className="opacity-0"></div>
+
+      {showAlert && (
+        <Alert
+          color={alertType}
+          onDismiss={() => {
+            setShowAlert(false);
+            setMessage('');
+            setAlertType('');
+          }}
+        >
+          <span className="font-medium">{message}</span>
+        </Alert>
+      )}
       <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="px-7 py-4">
           {/* Nama */}
@@ -49,6 +141,8 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <input
               type="text"
               placeholder="Masukkan nama"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
@@ -62,11 +156,13 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <input
               type="email"
               placeholder="Masukkan email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
           {/* Email */}
-          
+
           {/* Password */}
           <div className="my-5">
             <label className="mb-3 block text-black dark:text-white">
@@ -75,6 +171,8 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <input
               type="password"
               placeholder="Masukkan password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
@@ -88,6 +186,8 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <input
               type="password"
               placeholder="Masukkan konfirmasi password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
@@ -101,6 +201,8 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <input
               type="text"
               placeholder="Masukkan posisi"
+              onChange={(e) => setPosition(e.target.value)}
+              value={position}
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
@@ -111,12 +213,15 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <label className="mb-3 block text-black dark:text-white">
               Status
             </label>
-            <Select id="status" required color="white">
-              <option disabled selected>
-                Pilih Status
-              </option>
-              <option>Aktif</option>
-              <option>Tidak Aktif</option>
+            <Select
+              id="status"
+              required
+              color="white"
+              onChange={(e) => setStatus(e.target.value)}
+              value={status}
+            >
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
             </Select>
           </div>
           {/* Status */}
@@ -134,13 +239,13 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
               helperText="SVG, PNG, JPG or GIF"
             />
 
-            {photo && (
+            {preview && (
               <div className="mt-4">
                 <p className="mb-3 block text-black dark:text-white">
                   Preview Foto :
                 </p>
                 <img
-                  src={photo}
+                  src={preview}
                   alt="Preview"
                   className="mt-2 w-auto h-[300px] rounded-full shadow-md"
                 />
@@ -151,8 +256,18 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
 
           {/* Save */}
           <div className="mb-3">
-            <Button color="btnBlue">
-              {isEdit ? 'Edit Pengguna' : 'Buat Pengguna'}
+            <Button
+              color="btnBlue"
+              onClick={isEdit ? updateUserFunc : insertUserFunc}
+            >
+              {loading ? (
+                <div>
+                  <Spinner aria-label="Spinner button example" size="sm" />
+                  <span className="pl-3">Loading...</span>
+                </div>
+              ) : (
+                <p>{isEdit ? 'Edit Pengguna' : 'Buat Pengguna'}</p>
+              )}
             </Button>
           </div>
           {/* Save */}
