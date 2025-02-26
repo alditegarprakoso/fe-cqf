@@ -109,7 +109,7 @@ const TableList = (props: TableListProps) => {
                   <div className="flex items-center space-x-3.5">
                     <Button
                       as={Link}
-                      to={`${editPath}/${key}`}
+                      to={`${editPath}/${item.id}`}
                       color="btnAction"
                     >
                       <Pencil />

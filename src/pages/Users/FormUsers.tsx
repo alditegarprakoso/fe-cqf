@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+
 import {
   Button,
   Label,
@@ -9,11 +10,16 @@ import {
   Alert,
 } from 'flowbite-react';
 
-import { insertUser } from '../../services/UserServices';
+import {
+  insertUser,
+  getUserById,
+  updateUser,
+} from '../../services/UserServices';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
 const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
+  const { userId } = useParams();
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -104,7 +110,64 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
     }
   };
 
-  const updateUserFunc = () => {};
+  const getUserData = async (id: number | string) => {
+    try {
+      const response = await getUserById(id);
+      const { data } = response.data;
+      setName(data.name);
+      setEmail(data.email);
+      setPosition(data.position);
+      setStatus(data.status);
+      setPreview(data.photo);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const updateUserFunc = async () => {
+    const payload = {
+      name,
+      email,
+      position,
+      status,
+      photo,
+    };
+
+    setLoading(true);
+    try {
+      await updateUser(Number(userId), payload);
+      setAlertType('success');
+      setMessage('Data Berhasil Diubah!');
+      setShowAlert(true);
+    } catch (error: any) {
+      console.log(error);
+      setShowAlert(true);
+      setAlertType('failure');
+      setMessage(
+        error.response?.data?.errors ||
+          error.response?.data?.message ||
+          'Terjadi kesalahan',
+      );
+    } finally {
+      setLoading(false);
+      const scrollToMe = document.getElementById('scrollToMe');
+      if (scrollToMe) {
+        scrollToMe.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      if (userId) {
+        getUserData(userId);
+      }
+    }
+  }, [isEdit]);
   return (
     <>
       <Breadcrumb pageName={title} direction={direction} />
@@ -164,7 +227,7 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
           {/* Email */}
 
           {/* Password */}
-          <div className="my-5">
+          <div className={`my-5 ${isEdit ? 'hidden' : 'block'}`}>
             <label className="mb-3 block text-black dark:text-white">
               Password
             </label>
@@ -179,7 +242,7 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
           {/* Password */}
 
           {/* Konfirmasi Password */}
-          <div className="my-5">
+          <div className={`my-5 ${isEdit ? 'hidden' : 'block'}`}>
             <label className="mb-3 block text-black dark:text-white">
               Konfirmasi Password
             </label>

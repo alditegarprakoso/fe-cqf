@@ -316,7 +316,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/users/edit/:id"
+          path="/dashboard/users/edit/:userId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Pengguna | Cinta Qur'an Foundation" />
