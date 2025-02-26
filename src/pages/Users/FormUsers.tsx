@@ -66,7 +66,14 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
   };
 
   const insertUserFunc = async () => {
-    if (name === '' || password !== confirmPassword) {
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !status ||
+      password !== confirmPassword
+    ) {
       alert('Password dan Konfirmasi Password tidak cocok!');
       return;
     }
@@ -90,13 +97,13 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
       clearForm();
     } catch (error: any) {
       console.log(error);
-      setShowAlert(true);
       setAlertType('failure');
       setMessage(
         error.response?.data?.errors ||
           error.response?.data?.message ||
           'Terjadi kesalahan',
       );
+      setShowAlert(true);
     } finally {
       setLoading(false);
       const scrollToMe = document.getElementById('scrollToMe');

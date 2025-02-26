@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HumanCategoryIcon from './Icon/HumanCategoryIcon';
 import KajianIcon from './Icon/KajianIcon';
 import LiveIcon from './Icon/LiveIcon';
@@ -29,6 +29,10 @@ const icons = {
 
 export default function IconPicker({ value, onChange }: IconPickerProps) {
   const [selectedIcon, setSelectedIcon] = useState<string | undefined>(value);
+
+  useEffect(() => {
+    setSelectedIcon(value);
+  }, [value]);
 
   const handleSelect = (iconKey: string) => {
     setSelectedIcon(iconKey);
