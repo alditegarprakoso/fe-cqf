@@ -188,7 +188,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/program/edit/:id"
+          path="/dashboard/program/edit/:programId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Program | Cinta Qur'an Foundation" />

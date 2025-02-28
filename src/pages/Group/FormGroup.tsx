@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { Button, Label, Select, FileInput, Alert, Spinner } from 'flowbite-react';
+import {
+  Button,
+  Label,
+  Select,
+  FileInput,
+  Alert,
+  Spinner,
+} from 'flowbite-react';
 import { Link, useParams } from 'react-router-dom';
 import {
   getGroupById,
@@ -61,15 +68,6 @@ const FormGroup: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   };
 
   const insertGroupFunc = async () => {
-    const payload = {
-      name,
-      logo,
-      status,
-    };
-
-    console.log(payload);
-    
-
     if (!name || !logo || !status) {
       setMessage('Harap isi form dengan benar!');
       setAlertType('failure');
@@ -77,6 +75,11 @@ const FormGroup: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       return;
     }
 
+    const payload = {
+      name,
+      logo,
+      status,
+    };
 
     setLoading(true);
     try {
@@ -109,6 +112,13 @@ const FormGroup: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   };
 
   const updateGroupFunc = async () => {
+    if (!name || !status) {
+      setMessage('Harap isi form dengan benar!');
+      setAlertType('failure');
+      setShowAlert(true);
+      return;
+    }
+
     const payload = {
       name,
       logo,
