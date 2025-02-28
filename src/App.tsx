@@ -124,7 +124,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/donation/list/edit/:id"
+          path="/dashboard/donation/list/edit/:donatureId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Donatur | Cinta Qur'an Foundation" />
@@ -220,7 +220,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/kajian/edit/:id"
+          path="/dashboard/kajian/edit/:kajianId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Kajian | Cinta Qur'an Foundation" />
@@ -252,7 +252,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/kajian/category/edit/:id"
+          path="/dashboard/kajian/category/edit/:categoryId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Kategori Kajian | Cinta Qur'an Foundation" />

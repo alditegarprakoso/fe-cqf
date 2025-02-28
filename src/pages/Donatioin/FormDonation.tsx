@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import {
   Button,
@@ -278,7 +278,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
           {/* Category */}
           <div className="mb-5">
             <label className="mb-3 block text-black dark:text-white">
-              Deskripsi
+              Kategori
             </label>
             <Select
               options={dataCetgory}
