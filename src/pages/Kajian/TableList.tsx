@@ -2,26 +2,51 @@ import { Button, Modal } from 'flowbite-react';
 import { CircleAlert, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { deleteKajian } from '../../services/KajianServices';
 
 interface TableListProps {
   tableTitle: string[];
   data: {
+    id: number;
     thumbnail: string;
     title: string;
-    sub_title: string;
+    subtitle: string;
     description: string;
-    category: string;
-    date: string;
-    live: string;
+    kajian_category: {
+      id: string;
+      name: string;
+    };
+    datetime: string;
+    is_live: string;
     url: string;
     status: string;
   }[];
   editPath: string;
+  numbering: { perPage: number; currentPage: number };
+  refreshData: () => void;
+  setIsDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TableList = (props: TableListProps) => {
-  const { tableTitle, data, editPath } = props;
+  const { tableTitle, data, editPath, numbering, refreshData, setIsDelete } =
+    props;
   const [openModal, setOpenModal] = useState(false);
+  const [id, setId] = useState(0);
+
+  const showModal = (id: number) => {
+    setOpenModal(true);
+    setId(id);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteKajian(id);
+      refreshData();
+      setIsDelete(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -33,8 +58,8 @@ const TableList = (props: TableListProps) => {
                 <th
                   key={key}
                   className={`py-4 px-4 font-medium text-black dark:text-white ${
-                    title !== 'No' && 'min-w-[200px]'
-                  } ${title === 'Deskripsi' && 'min-w-[300px]'}`}
+                    title !== 'No' && 'min-w-[250px]'
+                  } ${title === 'Thumbnail' && 'min-w-[300px]'}`}
                 >
                   <p className={`text-black dark:text-white`}>{title}</p>
                 </th>
@@ -46,23 +71,23 @@ const TableList = (props: TableListProps) => {
               <tr key={key} className="border-b last:border-b-0">
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white">
-                    {key + 1}
+                    {numbering.perPage * (numbering.currentPage - 1) + key + 1}
                   </h5>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    className="h-[150px] w-auto"
+                    className="h-auto w-[300px] object-contain"
                   />
                 </td>
-                <td className="border-[#eee] py-5 px-4 dark:border-strokedark w-full md:w-[50%]">
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white md:whitespace-normal">
                     {item.title}
                   </h5>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">{item.sub_title}</p>
+                  <p className="text-black dark:text-white">{item.subtitle}</p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
@@ -70,24 +95,26 @@ const TableList = (props: TableListProps) => {
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">{item.category}</p>
+                  <p className="text-black dark:text-white">
+                    {item.kajian_category.name}
+                  </p>
                 </td>
-                <td className="border-[#eee] py-5 px-4 dark:border-strokedark w-full md:w-[50%]">
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white md:whitespace-normal">
-                    {item.date}
+                    {new Date(item.datetime).toLocaleString()}
                   </h5>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      item.live === 'Sedang Live'
+                      item.is_live == '1'
                         ? 'bg-success text-success'
-                        : item.live === 'Tidak Live'
+                        : item.is_live == '0'
                         ? 'bg-danger text-danger'
                         : 'bg-yellow-400 text-yellow-700'
                     }`}
                   >
-                    {item.live}
+                    {item.is_live == '1' ? 'Sedang Live' : 'Tidak Live'}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -110,7 +137,7 @@ const TableList = (props: TableListProps) => {
                   <div className="flex items-center space-x-3.5">
                     <Button
                       as={Link}
-                      to={`${editPath}/${key}`}
+                      to={`${editPath}/${item.id}`}
                       color="btnAction"
                     >
                       <Pencil />
@@ -118,7 +145,7 @@ const TableList = (props: TableListProps) => {
                     <button
                       className="hover:text-danger"
                       aria-label="Delete"
-                      onClick={() => setOpenModal(true)}
+                      onClick={() => showModal(item.id)}
                     >
                       <Trash2 />
                     </button>
@@ -144,7 +171,7 @@ const TableList = (props: TableListProps) => {
               Apakah kamu yakin ingin menghapus data ini?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => setOpenModal(false)}>
+              <Button color="failure" onClick={handleDelete}>
                 Ya, hapus data
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

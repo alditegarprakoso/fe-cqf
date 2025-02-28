@@ -11,6 +11,8 @@ interface TableListProps {
     thumbnail: string;
     title: string;
     target_amount: number;
+    total_collected: number;
+    is_target_reached: boolean;
     donation_category: {
       id: string;
       name: string;
@@ -62,9 +64,7 @@ const TableList = (props: TableListProps) => {
               {tableTitle.map((title: string, key: number) => (
                 <th
                   key={key}
-                  className={`py-4 px-4 font-medium text-black dark:text-white ${
-                    title === 'Donasi' && 'w-[350px]'
-                  }`}
+                  className={`py-4 px-4 font-medium text-black dark:text-white`}
                 >
                   <p
                     className={`text-black dark:text-white ${
@@ -87,7 +87,7 @@ const TableList = (props: TableListProps) => {
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <img
-                    src={donation.thumbnail && donation.thumbnail}
+                    src={donation.thumbnail}
                     alt={donation.thumbnail}
                     className="h-auto w-[250px] object-contain rounded"
                   />
@@ -105,6 +105,24 @@ const TableList = (props: TableListProps) => {
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {donation.target_amount}
+                  </p>
+                </td>
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">
+                    {donation.total_collected}
+                  </p>
+                </td>
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p
+                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                      donation.is_target_reached === true
+                        ? 'bg-success text-success'
+                        : donation.is_target_reached === false
+                        ? 'bg-danger text-danger'
+                        : 'bg-gray-300 text-gray-700'
+                    }`}
+                  >
+                    {donation.is_target_reached ? 'Tercapai' : 'Belum Tercapai'}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">

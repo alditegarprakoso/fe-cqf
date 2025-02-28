@@ -26,6 +26,8 @@ const Donation: React.FC = () => {
     'Donasi',
     'Kategori',
     'Target Donasi',
+    'Donasi Terkumpul',
+    'Tercapai',
     'Status',
     'Aksi',
   ];
