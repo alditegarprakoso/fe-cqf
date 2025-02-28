@@ -284,7 +284,7 @@ function App() {
         />
 
         <Route
-          path="/dashboard/group/edit/:id"
+          path="/dashboard/group/edit/:groupId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Group | Cinta Qur'an Foundation" />
