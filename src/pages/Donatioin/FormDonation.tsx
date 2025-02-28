@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import {
   Button,
@@ -283,8 +283,9 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             <Select
               options={dataCetgory}
               getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option.id}
               onChange={(e) => e && setCategoryId(e.id)}
-              value={dataCetgory.find((option) => option.id === categoryId)}
+              value={dataCetgory.find((item) => item.id === categoryId)}
               placeholder="Pilih Kategori Donasi"
             />
           </div>
