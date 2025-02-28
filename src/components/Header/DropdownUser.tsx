@@ -40,7 +40,7 @@ const DropdownUser = () => {
         </span>
 
         <img
-          src={DefaultPicture}
+          src={user.photo ? user.photo : DefaultPicture}
           alt="User"
           className="h-12 w-12 rounded-full"
         />

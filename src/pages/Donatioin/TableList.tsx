@@ -11,6 +11,7 @@ interface TableListProps {
     thumbnail: string;
     title: string;
     target_amount: number;
+    due_date: string;
     total_collected: number;
     is_target_reached: boolean;
     donation_category: {
@@ -64,7 +65,9 @@ const TableList = (props: TableListProps) => {
               {tableTitle.map((title: string, key: number) => (
                 <th
                   key={key}
-                  className={`py-4 px-4 font-medium text-black dark:text-white`}
+                  className={`py-4 px-4 font-medium text-black dark:text-white ${
+                    title !== 'No' && 'min-w-[250px]'
+                  } ${title === 'Thumbnail' && 'min-w-[300px]'}`}
                 >
                   <p
                     className={`text-black dark:text-white ${
@@ -89,7 +92,7 @@ const TableList = (props: TableListProps) => {
                   <img
                     src={donation.thumbnail}
                     alt={donation.thumbnail}
-                    className="h-auto w-[250px] object-contain rounded"
+                    className="h-auto w-[300px] object-contain rounded"
                   />
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -105,6 +108,11 @@ const TableList = (props: TableListProps) => {
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {donation.target_amount}
+                  </p>
+                </td>
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">
+                    {donation.due_date}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">

@@ -57,7 +57,7 @@ const TableList = (props: TableListProps) => {
                     title !== 'No' &&
                     title !== 'Bukti Transfer' &&
                     'min-w-[200px]'
-                  } ${title === 'Bukti Transfer' && 'min-w-[350px]'}
+                  } ${title === 'Bukti Transfer' && 'min-w-[200px]'}
                   `}
                 >
                   <p className={`text-black dark:text-white`}>{title}</p>
@@ -77,7 +77,7 @@ const TableList = (props: TableListProps) => {
                   <img
                     src={item.attachment}
                     alt={item.donature_name}
-                    className="h-auto w-[300px] object-contain"
+                    className="h-[350px] w-auto object-contain"
                   />
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">

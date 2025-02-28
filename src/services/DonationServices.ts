@@ -6,6 +6,7 @@ interface donationData {
   description?: string;
   target_amount: string;
   bank_account: string;
+  due_date: string;
   status: string;
   thumbnail: File | string | null;
 }
@@ -32,6 +33,7 @@ export const insertDonation = async (data: donationData) => {
   }
   formData.append('target_amount', data.target_amount);
   formData.append('bank_account', data.bank_account);
+  formData.append('due_date', data.due_date);
   formData.append('status', data.status);
   if (data.thumbnail) {
     formData.append('thumbnail', data.thumbnail);
@@ -60,6 +62,7 @@ export const updateDonation = async (id: number, data: donationData) => {
   }
   formData.append('target_amount', data.target_amount);
   formData.append('bank_account', data.bank_account);
+  formData.append('due_date', data.due_date);
   formData.append('status', data.status);
   if (data.thumbnail) {
     formData.append('thumbnail', data.thumbnail);

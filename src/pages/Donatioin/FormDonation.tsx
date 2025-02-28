@@ -30,6 +30,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
   const [description, setDescription] = useState<string>('');
   const [targetAmount, setTargetAmount] = useState<string>('0');
   const [bankAccount, setBankAccount] = useState<string>('');
+  const [dueDate, setDueDate] = useState<string>('');
   const [status, setStatus] = useState<string>('Aktif');
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -65,6 +66,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
     setDescription('');
     setTargetAmount('0');
     setBankAccount('');
+    setDueDate('');
     setStatus('Aktif');
     setThumbnail(null);
     setPreview(null);
@@ -93,6 +95,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       setDescription(data.description);
       setTargetAmount(data.target_amount);
       setBankAccount(data.bank_account);
+      setDueDate(data.due_date);
       setStatus(data.status);
       setThumbnail(null);
       setPreview(data.thumbnail);
@@ -107,6 +110,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       !title ||
       Number(targetAmount) <= 0 ||
       !bankAccount ||
+      !dueDate ||
       !status ||
       !thumbnail
     ) {
@@ -122,6 +126,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       description,
       target_amount: targetAmount,
       bank_account: bankAccount,
+      due_date: dueDate,
       status,
       thumbnail,
     };
@@ -162,6 +167,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       !title ||
       Number(targetAmount) <= 0 ||
       !bankAccount ||
+      !dueDate ||
       !status
     ) {
       setMessage('Harap isi form dengan benar');
@@ -176,6 +182,7 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       description,
       target_amount: targetAmount,
       bank_account: bankAccount,
+      due_date: dueDate,
       status,
       thumbnail,
     };
@@ -320,6 +327,19 @@ const FormDonation: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
             />
           </div>
           {/* Bank */}
+
+          {/* Due Date */}
+          <div className="mb-5">
+            <label className="mb-3 block text-black dark:text-white">
+              Tanggal Berakhir
+            </label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className="border border-gray-300 p-2 rounded-md w-full"
+            />
+          </div>
 
           {/* Status */}
           <div className="mb-5">
