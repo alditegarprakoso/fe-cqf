@@ -2,23 +2,56 @@ import { Button, Modal } from 'flowbite-react';
 import { CircleAlert, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { deleteDonation } from '../../services/DonationServices';
 
 interface TableListProps {
   tableTitle: string[];
   dataDonation: {
-    image: string;
-    donationTitle: string;
-    donationTotal: string;
-    donationCategory: string;
-    donationStatus: string;
-    remaining: string;
+    id: number;
+    thumbnail: string;
+    title: string;
+    target_amount: number;
+    donation_category: {
+      id: string;
+      name: string;
+      description: string;
+      icon: string;
+      status: string;
+    };
+    status: string;
   }[];
   editPath: string;
+  numbering: { perPage: number; currentPage: number };
+  refreshData: () => void;
+  setIsDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TableList = (props: TableListProps) => {
-  const { tableTitle, dataDonation, editPath } = props;
+  const {
+    tableTitle,
+    dataDonation,
+    editPath,
+    numbering,
+    refreshData,
+    setIsDelete,
+  } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [id, setId] = useState(0);
+
+  const showModal = (id: number) => {
+    setOpenModal(true);
+    setId(id);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteDonation(id);
+      refreshData();
+      setIsDelete(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -30,7 +63,7 @@ const TableList = (props: TableListProps) => {
                 <th
                   key={key}
                   className={`py-4 px-4 font-medium text-black dark:text-white ${
-                    title === 'Donasi' && 'min-w-[250px] md:w-[50%]'
+                    title === 'Donasi' && 'w-[350px]'
                   }`}
                 >
                   <p
@@ -49,42 +82,49 @@ const TableList = (props: TableListProps) => {
               <tr key={key} className="border-b last:border-b-0">
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white">
-                    {key + 1}
+                    {numbering.perPage * (numbering.currentPage - 1) + key + 1}
                   </h5>
                 </td>
-                <td className="border-[#eee] py-5 px-4 dark:border-strokedark w-full md:w-[50%]">
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <img
+                    src={donation.thumbnail && donation.thumbnail}
+                    alt={donation.thumbnail}
+                    className="h-auto w-[250px] object-contain rounded"
+                  />
+                </td>
+                <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <h5 className="font-medium text-black dark:text-white md:whitespace-normal">
-                    {donation.donationTitle}
+                    {donation.title}
                   </h5>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {donation.donationCategory}
+                    {donation.donation_category.name}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {donation.donationTotal}
+                    {donation.target_amount}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      donation.donationStatus === 'Aktif'
+                      donation.status === 'Aktif'
                         ? 'bg-success text-success'
-                        : donation.donationStatus === 'Tidak Aktif'
+                        : donation.status === 'Tidak Aktif'
                         ? 'bg-danger text-danger'
                         : 'bg-gray-300 text-gray-700'
                     }`}
                   >
-                    {donation.donationStatus}
+                    {donation.status}
                   </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <Button
                       as={Link}
-                      to={`${editPath}/${key}`}
+                      to={`${editPath}/${donation.id}`}
                       color="btnAction"
                     >
                       <Pencil />
@@ -92,7 +132,7 @@ const TableList = (props: TableListProps) => {
                     <button
                       className="hover:text-danger"
                       aria-label="Delete"
-                      onClick={() => setOpenModal(true)}
+                      onClick={() => showModal(donation.id)}
                     >
                       <Trash2 />
                     </button>
@@ -113,12 +153,12 @@ const TableList = (props: TableListProps) => {
         <Modal.Header />
         <Modal.Body>
           <div className="flex flex-col items-center">
-            <CircleAlert width={50} height={50} color='red' className='mb-5' />
+            <CircleAlert width={50} height={50} color="red" className="mb-5" />
             <h3 className="mb-5 text-lg font-normal text-black dark:text-white">
               Apakah kamu yakin ingin menghapus data ini?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => setOpenModal(false)}>
+              <Button color="failure" onClick={handleDelete}>
                 Ya, hapus data
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

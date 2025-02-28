@@ -92,7 +92,7 @@ function App() {
           }
         />
         <Route
-          path="/dashboard/donation/edit/:id"
+          path="/dashboard/donation/edit/:donationId"
           element={
             <DefaultLayout>
               <PageTitle title="Edit Donasi | Cinta Qur'an Foundation" />

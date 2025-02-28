@@ -74,7 +74,9 @@ const FormUsers: React.FC<{ isEdit?: boolean }> = ({ isEdit = false }) => {
       !status ||
       password !== confirmPassword
     ) {
-      alert('Password dan Konfirmasi Password tidak cocok!');
+      setMessage('Harap isi form dengan benar!');
+      setAlertType('failure');
+      setShowAlert(true);
       return;
     }
 
