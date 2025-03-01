@@ -145,7 +145,10 @@ function Home() {
     setLoading(true);
 
     try {
-      const response = await getHomepage();
+      const response = await getHomepage(
+        categoryDonationSelected,
+        categoryKajianSelected,
+      );
 
       // Donations
       const dataDonation = chunkArrayDonation(response.data.data.donations, 3);
@@ -175,7 +178,15 @@ function Home() {
 
   useEffect(() => {
     fetchHomepage();
-  }, []);
+  }, [categoryDonationSelected, categoryKajianSelected]);
+
+  const changeCategoryDonation = (id: string) => {
+    setCategoryDonationSelected(id);
+  };
+
+  const changeCategoryKajian = (id: string) => {
+    setCategoryKajianSelected(id);
+  };
 
   return (
     <div>
@@ -404,9 +415,20 @@ function Home() {
 
               {/* Donasi Category */}
               <div className="flex justify-between mb-10 overflow-x-auto pb-3 gap-4">
-                <Button color="btnCategoryActive" pill={true}>
+                <Button
+                  color={
+                    categoryDonationSelected === 'all'
+                      ? 'btnCategoryActive'
+                      : 'btnCategory'
+                  }
+                  pill={true}
+                  onClick={() => changeCategoryDonation('all')}
+                >
                   <div className="flex items-center justify-center">
-                    <AllCategoryIcon active={true} className="mr-3" />
+                    <AllCategoryIcon
+                      active={categoryDonationSelected === 'all' && true}
+                      className="mr-3"
+                    />
                     <p>Semua Kategori</p>
                   </div>
                 </Button>
@@ -414,15 +436,25 @@ function Home() {
                   return (
                     <Button
                       color={
-                        categoryDonationSelected === categoryDonation.icon
+                        categoryDonationSelected === categoryDonation.id
                           ? 'btnCategoryActive'
                           : 'btnCategory'
                       }
                       key={categoryDonation.id}
                       pill={true}
+                      onClick={() =>
+                        changeCategoryDonation(categoryDonation.id)
+                      }
                     >
-                      <div className="flex items-center justify-center">
-                        <ShowIcon value={categoryDonation.icon} />
+                      <div className="flex items-center justify-center group">
+                        <ShowIcon
+                          value={categoryDonation.icon}
+                          active={
+                            categoryDonationSelected === categoryDonation.id
+                              ? true
+                              : false
+                          }
+                        />
                         <p>{categoryDonation.name}</p>
                       </div>
                     </Button>
@@ -890,9 +922,20 @@ function Home() {
 
               {/* Kajian Category */}
               <div className="flex justify-between mb-10 overflow-x-auto lg:overflow-hidden pb-3 gap-4">
-                <Button color="btnCategoryActive" pill={true}>
+                <Button
+                  color={
+                    categoryKajianSelected === 'all'
+                      ? 'btnCategoryActive'
+                      : 'btnCategory'
+                  }
+                  onClick={() => changeCategoryKajian('all')}
+                  pill={true}
+                >
                   <div className="flex items-center justify-center">
-                    <AllCategoryIcon active={true} className="mr-3" />
+                    <AllCategoryIcon
+                      active={categoryKajianSelected === 'all' && true}
+                      className="mr-3"
+                    />
                     <p>Semua Kajian</p>
                   </div>
                 </Button>
@@ -900,15 +943,23 @@ function Home() {
                   return (
                     <Button
                       color={
-                        categoryKajianSelected === categoryKajian.icon
+                        categoryKajianSelected === categoryKajian.id
                           ? 'btnCategoryActive'
                           : 'btnCategory'
                       }
                       key={categoryKajian.id}
                       pill={true}
+                      onClick={() => changeCategoryKajian(categoryKajian.id)}
                     >
                       <div className="flex items-center justify-center">
-                        <ShowIcon value={categoryKajian.icon} />
+                        <ShowIcon
+                          value={categoryKajian.icon}
+                          active={
+                            categoryKajianSelected === categoryKajian.id
+                              ? true
+                              : false
+                          }
+                        />
                         <p>{categoryKajian.name}</p>
                       </div>
                     </Button>

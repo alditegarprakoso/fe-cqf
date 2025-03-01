@@ -97,7 +97,7 @@ const FormKajian: React.FC<{ isEdit?: boolean }> = ({ isEdit }) => {
       setSubtitle(data.subtitle);
       setDescription(data.description);
       setDatetime(data.datetime);
-      setLive(data.live == '1' ? 'Live' : 'Tidak Live');
+      setLive(data.is_live == '1' ? 'Live' : 'Tidak Live');
       setUrl(data.url);
       setStatus(data.status);
       setThumbnail(null);

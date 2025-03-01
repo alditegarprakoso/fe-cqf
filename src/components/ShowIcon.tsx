@@ -11,6 +11,7 @@ import DateIcon from './Icon/DateIcon';
 
 interface ShowIconProps {
   value?: string;
+  active?: boolean;
 }
 
 // Daftar icon
@@ -26,7 +27,7 @@ const icons: Record<string, React.ElementType> = {
   OthersCategoryIcon,
 };
 
-export default function ShowIcon({ value }: ShowIconProps) {
+export default function ShowIcon({ value, active }: ShowIconProps) {
   const [selectedIcon, setSelectedIcon] = useState<string | undefined>(value);
 
   useEffect(() => {
@@ -40,7 +41,11 @@ export default function ShowIcon({ value }: ShowIconProps) {
       {/* Show Selected Icon */}
       <div>
         {SelectedIcon ? (
-          <SelectedIcon size={24} className="mr-3" />
+          <SelectedIcon
+            size={24}
+            className="mr-3"
+            color={active ? '#389ED9' : '#636363'}
+          />
         ) : (
           <p className="text-gray-500">Icon tidak ditemukan</p>
         )}
