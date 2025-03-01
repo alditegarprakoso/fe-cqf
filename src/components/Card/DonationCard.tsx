@@ -1,13 +1,18 @@
 import { Progress } from 'flowbite-react';
+import { formatRupiah, hitungSisaHari } from '../../utils/Helper';
 
 type ProgressProps = {
   image: string;
   donationTitle: string;
   donationTotal: string;
+  targetAmount: string;
   remaining: string;
 };
 
 export default function DonationCard(props: ProgressProps) {
+  const progress =
+    (Number(props.donationTotal) / Number(props.targetAmount)) * 100;
+
   return (
     <div className="max-w-sm rounded-2xl overflow-hidden shadow-lg bg-white mx-auto">
       {/* Gambar */}
@@ -27,15 +32,19 @@ export default function DonationCard(props: ProgressProps) {
         <div className="flex justify-between items-center text-sm text-gray-600 mb-4 mt-8">
           <div>
             <p>Dana Terkumpul</p>
-            <p className="text-blue-cqf font-semibold">Rp {props.donationTotal}</p>
+            <p className="text-blue-cqf font-semibold">
+              {formatRupiah(Number(props.donationTotal))}
+            </p>
           </div>
           <div className="text-right">
             <p>Sisa Waktu</p>
-            <p className="text-blue-cqf font-semibold">{props.remaining}</p>
+            <p className="text-blue-cqf font-semibold">
+              {hitungSisaHari(props.remaining)}
+            </p>
           </div>
         </div>
 
-        <Progress progress={45} size="sm" color="progressCqf" />
+        <Progress progress={progress} size="sm" color="progressCqf" />
       </div>
     </div>
   );

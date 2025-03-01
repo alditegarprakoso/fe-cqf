@@ -80,7 +80,17 @@ const TableList = (props: TableListProps) => {
                   <p className="text-black dark:text-white">{item.icon}</p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">{item.status}</p>
+                  <p
+                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                      item.status === 'Aktif'
+                        ? 'bg-success text-success'
+                        : item.status === 'Tidak Aktif'
+                        ? 'bg-danger text-danger'
+                        : 'bg-gray-300 text-gray-700'
+                    }`}
+                  >
+                    {item.status}
+                  </p>
                 </td>
                 <td className="border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
