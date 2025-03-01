@@ -3,15 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Flowbite, Spinner } from 'flowbite-react';
 import { customTheme } from '../utils/FlowbiteThemesCustom';
 import Marquee from 'react-fast-marquee';
+import { motion } from 'motion/react';
 
 // Icon
 import {
   AllCategoryIcon,
   ArrowRight,
-  DateIcon,
   EmailIcon,
   FacebookIcon,
-  HumanCategoryIcon,
   InstagramIcon,
   KajianIcon,
   KajianOnlineIcon,
@@ -19,11 +18,8 @@ import {
   LiveIcon,
   LocationIcon,
   MasjidIcon,
-  OfficeIcon,
-  OnlineIcon,
   OthersCategoryIcon,
   PhoneIcon,
-  WakafIcon,
   WhatsAppIcon,
   YoutubeIcon,
 } from '../components/Icon';
@@ -39,21 +35,9 @@ import BackgroundHero from '../images/background/background-hero.png';
 import BackgroundProgram from '../images/background/background-program.png';
 import BackgroundAmazingGroup from '../images/background/background-amazing-group.png';
 import BackgroundFooter from '../images/background/background-footer.png';
-import DonationBeras from '../images/homepage/donation/donation-beras.png';
-import DonationGempa from '../images/homepage/donation/donation-gempa.png';
-import DonationYatim from '../images/homepage/donation/donation-yatim.png';
 import ZakatInformation from '../images/homepage/donation/zakat-image.svg';
 import BarangBerkah from '../images/homepage/donation/barang-berkah.svg';
 import AmazingBox from '../images/homepage/donation/amazing-box.svg';
-import BacaQuran from '../images/homepage/program/indo-baca-quran.png';
-import QuranCall from '../images/homepage/program/cinta-quran-call.png';
-import KajianPerkantoran from '../images/homepage/program/kajian-perkantoran.png';
-import MajelisCintaQuran from '../images/homepage/program/majelis-cinta-quran.png';
-import QuranTV from '../images/homepage/program/cinta-quran-tv.png';
-import KajianInspiratif from '../images/homepage/kajian/kajian-inspiratif.png';
-import GroupOne from '../images/homepage/amazing-group/amazing-group-1.png';
-import GroupTwo from '../images/homepage/amazing-group/amazing-group-2.png';
-import GroupThree from '../images/homepage/amazing-group/amazing-group-3.png';
 import BannerRegister from '../images/homepage/amazing-group/background-banner-register.png';
 
 // Swiper
@@ -197,7 +181,12 @@ function Home() {
       ) : (
         <Flowbite theme={{ theme: customTheme }}>
           {/* Hero Section */}
-          <div className="relative mb-[130px]">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="relative mb-[130px]"
+          >
             <img
               src={BackgroundHero}
               alt="background-hero"
@@ -357,12 +346,18 @@ function Home() {
                 {/* Right Section */}
               </div>
             </ContainerHome>
-          </div>
+          </motion.div>
           {/* Hero Section */}
 
           {/* Donasi Section */}
           <ContainerHome>
-            <div className="py-6 px-8 md:mb-20 md:px-0">
+            <motion.div
+              initial={{ opacity: 1, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="py-6 px-8 md:mb-20 md:px-0"
+            >
               {/* Donasi Title */}
               <div className="flex flex-col md:flex-row justify-center md:justify-between md:items-center mb-10">
                 <div className="w-full mb-10 md:mb-0 md:w-[75%]">
@@ -615,12 +610,18 @@ function Home() {
                 </div>
               </div>
               {/* Donation Information */}
-            </div>
+            </motion.div>
           </ContainerHome>
           {/* Donasi Section */}
 
           {/* Program Pilihan */}
-          <div className="relative py-6 px-8 md:px-0">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative py-6 px-8 md:px-0"
+          >
             <img
               src={BackgroundProgram}
               alt="background-program"
@@ -902,11 +903,17 @@ function Home() {
               </div>
               {/* Program Content */}
             </ContainerHome>
-          </div>
+          </motion.div>
           {/* Program Pilihan */}
 
           {/* Kajian Inspiratif */}
-          <div className="lg:mt-[180px]">
+          <motion.div
+            initial={{ opacity: 1, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:mt-[180px]"
+          >
             <ContainerHome>
               {/* Title */}
               <div className="text-center mb-8">
@@ -1038,11 +1045,17 @@ function Home() {
               </div>
               {/* Kajian Content */}
             </ContainerHome>
-          </div>
+          </motion.div>
           {/* Kajian Inspiratif */}
 
           {/* Amazing Group */}
-          <div className="relative mt-8 md:mt-[200px]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="relative mt-8 md:mt-[200px]"
+          >
             <img
               src={BackgroundAmazingGroup}
               alt="background-program"
@@ -1118,7 +1131,7 @@ function Home() {
               </div>
               {/* Register */}
             </ContainerHome>
-          </div>
+          </motion.div>
           {/* Amazing Group */}
 
           {/* Footer */}
