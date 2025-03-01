@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
       <p className="text-2xl mb-10">
         Selamat datang, <span className="font-medium">{user.name}</span>
       </p>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats title="Donasi Berjalan" total="3">
           <HeartHandshake />
         </CardDataStats>
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
         <CardDataStats title="Pengguna" total="3">
           <Users />
         </CardDataStats>
-      </div>
+      </div> */}
     </>
   );
 };
